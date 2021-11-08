@@ -252,6 +252,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  8000252:	440a      	add	r2, r1
  8000254:	4910      	ldr	r1, [pc, #64]	; (8000298 <HAL_UART_RxCpltCallback+0xb0>)
  8000256:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
+//  if(aRxBuffer[0]!=0x00){
 	  aRxnum++;
  800025a:	4b0e      	ldr	r3, [pc, #56]	; (8000294 <HAL_UART_RxCpltCallback+0xac>)
  800025c:	681b      	ldr	r3, [r3, #0]
@@ -268,6 +269,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  800026e:	2201      	movs	r2, #1
  8000270:	701a      	strb	r2, [r3, #0]
     }
+ // }
   while(HAL_UART_Receive_IT(&huart1, aRxBuffer, 4) != HAL_OK); // Wait completly receive 1 byte data, and put data in rDataBuffer
  8000272:	bf00      	nop
  8000274:	2204      	movs	r2, #4
@@ -340,6 +342,7 @@ int main(void)
  80002c8:	f007 fe82 	bl	8007fd0 <MX_USB_DEVICE_Init>
 //  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
+//  HAL_Delay(5000);
   HAL_UART_Receive_IT(&huart1,(uint8_t*)aRxBuffer,4);
  80002cc:	2204      	movs	r2, #4
  80002ce:	4922      	ldr	r1, [pc, #136]	; (8000358 <main+0xb4>)

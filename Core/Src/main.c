@@ -166,10 +166,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   aRxnumbuf[aRxnum]=(aRxnumbuf[aRxnum]<<8)+aRxBuffer[2];
   aRxnumbuf[aRxnum]=(aRxnumbuf[aRxnum]<<8)+aRxBuffer[1];
   aRxnumbuf[aRxnum]=(aRxnumbuf[aRxnum]<<8)+aRxBuffer[0];
+//  if(aRxBuffer[0]!=0x00){
 	  aRxnum++;
     if(aRxBuffer[0]==0x7E){  // (ascii)0x7E = "~"
       rDataFlag = 1;
     }
+ // }
   while(HAL_UART_Receive_IT(&huart1, aRxBuffer, 4) != HAL_OK); // Wait completly receive 1 byte data, and put data in rDataBuffer
 }
 /*
@@ -214,6 +216,7 @@ int main(void)
   MX_USB_DEVICE_Init();
 //  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
+//  HAL_Delay(5000);
   HAL_UART_Receive_IT(&huart1,(uint8_t*)aRxBuffer,4);
   /* USER CODE END 2 */
 
@@ -247,6 +250,15 @@ int main(void)
  	 		updateFlag=0;
  	 		iap_load_app(FLASH_APP_ADDR);
  	 	  }
+ 	 	 //
+ //     }
+
+ //	  else
+ //	  {
+ //		 iap_load_app(FLASH_APP_ADDR);
+ //	  }
+ 	 //
+ //     }
   }
   /* USER CODE END 3 */
 }
